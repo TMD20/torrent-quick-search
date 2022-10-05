@@ -3,7 +3,7 @@
 // @namespace  https://github.com/TMD20/torrent-quick-search
 // @supportURL https://github.com/TMD20/torrent-quick-search
 // @downloadURL https://greasyfork.org/en/scripts/452502-torrent-quick-search
-// @version     1.1.3
+// @version     1.1.4
 // @description Toggle for Searching Torrents via Search aggegrator
 // @icon        https://cdn2.iconfinder.com/data/icons/flat-icons-19/512/Eye.png
 // @author      tmd
@@ -72,7 +72,7 @@ async function doSearch(){
     indexers=await getIndexers()
     getTableHead()
     document.querySelector("#msgnode").textContent="Fetching Results"
-    imdb=getIMDB()
+    imdb=await getIMDB()
     data = await Promise.allSettled(indexers.map((e)=>searchIndexer(e,imdb)));
     addNumbers()
     console.log("Finished Fetching")
@@ -286,18 +286,21 @@ console.log(`title:${title}`)
 return title
 }
 
-function getIMDB()
+async function getIMDB()
 {
 let imdb=null
 
 if (standardNames[window.location.host]=="imdb.com"){
   imdb=window.location.href
 }
+else if(standardNames[window.location.host]=="themoviedb.org"){
+  imdb=await tmdbIMDBConvertor()
+}
 else{
 imdbNode=document.querySelector(siteParser["imdb"])
 if (imdbNode==null){
   msg="Parser: Could Not find IMDB"
-  console.log(imdb)
+  console.log(msg)
   return null
 }
 imdb=imdbNode[siteParser["imdbAttrib"]]
@@ -343,6 +346,22 @@ function imdbFilter(entry,imdb){
   }
   return False
 }
+
+async function tmdbIMDBConvertor(){
+  let key=GM_config.get('tmdbapi',"null")
+  if(key=="null"){
+    return null
+  }
+  let baseURL="https://api.themoviedb.org/3/movie/"
+  if(window.location.href.match(/\/tv\//)){
+  baseURL="https://api.themoviedb.org/3/tv/"
+  }
+  id=window.location.href.match(/\/[0-9]+/).toString().substring(1)
+  req=await fetch(`${baseURL}/${id}/external_ids?api_key=${key}&language=en-US`)
+  return JSON.parse(req.responseText)["imdb_id"]
+
+
+}
 `
 URL Processing
 
@@ -350,12 +369,12 @@ These Functions are used to generate the URL used to retrive the data for user
 
 `
 async function getBaseURL(){
- return `${new URL('/api/v1/search',GM_config.get('url')).toString()}?query=${getTitle()}&${await createSearchParmas()}`
+ return `${new URL('/api/v1/search',GM_config.get('searchurl')).toString()}?query=${getTitle()}&${await createSearchParmas()}`
 
 }
 async function createSearchParmas(){
    let params = new URLSearchParams();
-   params.append("apikey",GM_config.get('api'));
+   params.append("apikey",GM_config.get('searchapi'));
   return params.toString()
 }
 
@@ -363,8 +382,8 @@ async function getIndexers(){
         document.querySelector("#msgnode").textContent="Getting Indexers"
 
         let params = new URLSearchParams();
-        params.append("apikey",GM_config.get('api'));
-        indexerURL=`${GM_config.get('url')}/api/v1/indexer?${params.toString()}`
+        params.append("apikey",GM_config.get('searchapi'));
+        indexerURL=`${GM_config.get('searchurl')}/api/v1/indexer?${params.toString()}`
         req=await fetch(indexerURL)
         indexerCacheHelper(JSON.parse(req.responseText))
         if(GM_config.get('listType')=="black"){
@@ -573,7 +592,7 @@ GM_config.init(
   'title': 'Torrent Quick Search Settings', // Panel Title
   'fields':
   {
-     'tmdb':
+     'tmdbapi':
     {
       'label': 'TMDB API Key',
       'type': 'text',
@@ -581,19 +600,19 @@ GM_config.init(
     },
 
 
-    'url':
+    'searchurl':
     {
       'section': ['Search'],
 
-      'label': 'URL',
+      'label': 'searchurl',
       'type': 'text',
-      'title':'Base URl for program'
+      'title':'Base URl for search program'
     },
-        'api':
+        'searchapi':
     {
       'label': 'API Key',
       'type': 'text',
-      'title':'API key for program'
+      'title':'API key for search program'
 
     },
        'type':
@@ -602,7 +621,7 @@ GM_config.init(
 
       'type': 'select',
       'options': ['Prowlarr'],
-         'title':'Which Program'
+         'title':'Which search program'
     },
 
     'sitefilter':
