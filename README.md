@@ -6,4 +6,14 @@ The toggle shrinks when not in use, and can be moved around if desired
 
 ![image](https://user-images.githubusercontent.com/109320934/193980736-31fb834a-8c6d-4776-aa6f-f8a739efaa52.png)
 
+Suported Sites
+* Blutopia
+* Animebytes
+* BHD
+* IMDB
+* TMDB
+
+Support Search Aggregator
+* Prowlarr
+
 
