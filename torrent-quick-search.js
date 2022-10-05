@@ -3,7 +3,7 @@
 // @namespace  https://github.com/TMD20/torrent-quick-search
 // @supportURL https://github.com/TMD20/torrent-quick-search
 // @downloadURL https://greasyfork.org/en/scripts/452502-torrent-quick-search
-// @version     1.1.2
+// @version     1.1.3
 // @description Toggle for Searching Torrents via Search aggegrator
 // @icon        https://cdn2.iconfinder.com/data/icons/flat-icons-19/512/Eye.png
 // @author      tmd
@@ -506,6 +506,8 @@ Functions For Menu Events
 
 `
 function openMenu(){
+                content=document.querySelector("#searchcontent")
+
           content.style.pointerEvents="none"
     document.querySelector("#toggle").style.height='5%'
       document.querySelector("#toggle").style.width='5%'
@@ -514,6 +516,8 @@ function openMenu(){
 }
 
 function closeMenu(){
+      content=document.querySelector("#searchcontent")
+
       content.style.pointerEvents="all"
     document.querySelector("#toggle").style.height='2%'
       document.querySelector("#toggle").style.width='2%'
@@ -569,8 +573,18 @@ GM_config.init(
   'title': 'Torrent Quick Search Settings', // Panel Title
   'fields':
   {
+     'tmdb':
+    {
+      'label': 'TMDB API Key',
+      'type': 'text',
+      'title':'TMDB Key For TMDB/IMDB conversion'
+    },
+
+
     'url':
     {
+      'section': ['Search'],
+
       'label': 'URL',
       'type': 'text',
       'title':'Base URl for program'
