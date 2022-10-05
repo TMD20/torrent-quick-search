@@ -10,3 +10,4 @@ Todo/Future Features
 * add type column
 * cache data
 * Add Customizable Fields
+* Add Search Bar For Modifying Search
