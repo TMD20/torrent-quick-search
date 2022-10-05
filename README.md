@@ -2,7 +2,7 @@ Creates a quick search toggle powered by search aggregator such as prowlarr. Sea
 
 We can also customize results by filtering indexers that we don't want, or we can do a whitelist and only add indexer we want. Additionally on tracker sites we are also able to filter results from the current site. 
 
-
+The toggle shrinks when not in use, and can be moved around if desired
 
 ![image](https://user-images.githubusercontent.com/109320934/193980736-31fb834a-8c6d-4776-aa6f-f8a739efaa52.png)
 
