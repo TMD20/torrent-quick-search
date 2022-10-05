@@ -12,3 +12,8 @@
 1.11 
 * Simplify Error Handling
 * Change query for imdb on BHD
+
+1.15
+* Improve Results on TMDB
+* Changed config options
+* Ensure Require config options set
