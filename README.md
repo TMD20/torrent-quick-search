@@ -4,6 +4,7 @@ We can also customize results by filtering indexers that we don't want, or we ca
 
 The toggle shrinks when not in use, and can be moved around if desired
 
+
 ![image](https://user-images.githubusercontent.com/109320934/193980736-31fb834a-8c6d-4776-aa6f-f8a739efaa52.png)
 
 Suported Sites
@@ -15,5 +16,19 @@ Suported Sites
 
 Support Search Aggregator
 * Prowlarr
+
+How Use
+* Go to Supported Site
+* Make Sure to use your script manager to setup required settings
+  * Search URL
+  * Search Program
+  * Search API
+ * Click Icon when your on a title page
+    * For example movie's main page
+    * A page for a single torrent
+    
+
+
+
 
 
