@@ -3,7 +3,7 @@
 // @namespace  https://github.com/TMD20/torrent-quick-search
 // @supportURL https://github.com/TMD20/torrent-quick-search
 // @downloadURL https://greasyfork.org/en/scripts/452502-torrent-quick-search
-// @version     1.1.4
+// @version     1.1.5
 // @description Toggle for Searching Torrents via Search aggegrator
 // @icon        https://cdn2.iconfinder.com/data/icons/flat-icons-19/512/Eye.png
 // @author      tmd
@@ -114,6 +114,19 @@ function getParser(){
 }
   return data
 }
+
+function verifyConfig(){
+  if (GM_config.get('searchapi',"null")=="null"||GM_config.get('searchurl',"null")=="null"){
+      return false
+    }
+
+   if (GM_config.get('searchapi',"null")==""||GM_config.get('searchurl',"null")==""){
+      return false
+    }
+  return true
+
+}
+
 
 `
 DOM Manipulators
@@ -496,9 +509,14 @@ function mouseUpProcess(e){
 }
 
 function mouseClicksProcess(){
-  if (document.querySelector("#quicksearch").getAttribute('dragged')!='true'){
-     toggleSearch()
+  if (document.querySelector("#quicksearch").getAttribute('dragged')=='true'){
+     return
   }
+  if(verifyConfig()==false){
+  GM.notification("At Minimum You Need to Set\nSearch URl\nSearch API\nSearch Program", program,searchIcon)
+  return
+  }
+  toggleSearch()
 }
 //Reset Mouse Events
 function removeMouseEvents(){
@@ -667,4 +685,3 @@ GM_config.init(
   }
 );
 GM.registerMenuCommand('Torrent Quick Search Settings', function() {GM_config.open();});
-
