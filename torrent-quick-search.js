@@ -514,6 +514,7 @@ function mouseClicksProcess(){
   }
   if(verifyConfig()==false){
   GM.notification("At Minimum You Need to Set\nSearch URl\nSearch API\nSearch Program", program,searchIcon)
+  GM_config.open()
   return
   }
   toggleSearch()
