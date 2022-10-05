@@ -8,3 +8,7 @@
 * Remove Alert: Use the Native HTML5 Notification system supported by greasemonkey,violentmonkey,etc
 * Add IMDB Key, imdbattribu, tmdbattrib to parserDict
 * Fix @match error for Animebytes,BeyondHD
+
+1.11 
+* Simplify Error Handling
+* Change query for imdb on BHD
