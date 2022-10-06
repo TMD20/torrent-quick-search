@@ -17,3 +17,7 @@
 * Improve Results on TMDB
 * Changed config options
 * Ensure Require config options set
+
+1.16
+* remove dragged attribute, changed to global variable
+* Added Indexer Progress Count
