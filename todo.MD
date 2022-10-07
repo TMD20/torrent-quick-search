@@ -11,3 +11,6 @@ Todo/Future Features
 * cache data
 * Add Customizable Fields
 * Add Search Bar For Modifying Search
+* Allow Seeing History of Past Searches
+* Save Settings for multiple Programs
+
