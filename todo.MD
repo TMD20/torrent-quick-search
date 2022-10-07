@@ -14,6 +14,8 @@ Todo/Future Features
 * Allow Seeing History of Past Searches
 * Save Settings for multiple Programs
 * Add information on freeleech/ratio cost
+* Support multiple clients
+* Allow full customization of data
 
 
 
