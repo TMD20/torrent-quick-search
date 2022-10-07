@@ -13,4 +13,7 @@ Todo/Future Features
 * Add Search Bar For Modifying Search
 * Allow Seeing History of Past Searches
 * Save Settings for multiple Programs
+* Add information on freeleech/ratio cost
+
+
 
