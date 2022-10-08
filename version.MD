@@ -21,3 +21,9 @@
 1.16
 * remove dragged attribute, changed to global variable
 * Added Indexer Progress Count
+1.20
+* Added Hydra Support
+* Added Jackett Support
+* Fixed Counter Bug
+* Add Addition Columns to Table
+* Stability Improvements
