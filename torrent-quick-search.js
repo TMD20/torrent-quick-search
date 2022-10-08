@@ -3,7 +3,7 @@
 // @namespace  https://github.com/TMD20/torrent-quick-search
 // @supportURL https://github.com/TMD20/torrent-quick-search
 // @downloadURL https://greasyfork.org/en/scripts/452502-torrent-quick-search
-// @version     1.2.0
+// @version     1.2.1
 // @description Toggle for Searching Torrents via Search aggegrator
 // @icon        https://cdn2.iconfinder.com/data/icons/flat-icons-19/512/Eye.png
 // @author      tmd
@@ -99,9 +99,6 @@ searchObj={
 
   }
 
-
-
-
 async function searchIndexer(indexerObj,imdb,total,count){
 
     searchprogram=GM_config.get('searchprogram')
@@ -173,7 +170,7 @@ async function searchHydra2Indexer(indexer){
   console.log(req.finalUrl)
   return data.map((e)=>{
     t=[["title","title","textContent"],["indexer","[name=hydraIndexerName]","null"],["leechers","[name=peers]","null"],["seeders","[name=seeders]","null"],["cost","[name=downloadvolumefactor]","null"],
-            ["publishDate","pubDate","textContent"],["size","size","textContent"],["infoUrl","comments","textContent"],["downloadUrl","links","textContent"],["imdbId"],"[name=imdb]","null"]
+            ["publishDate","pubDate","textContent"],["size","size","textContent"],["infoUrl","comments","textContent"],["downloadUrl","link","textContent"],["imdbId","[name=imdb]","null"]]
     out={}
     out["grabs"]=null
 
@@ -187,6 +184,9 @@ async function searchHydra2Indexer(indexer){
 
       if(textContent){
         out[key]=node.textContent
+      }
+      else if(key=="cost"){
+         out[key]=`${(1-node.getAttribute("value"))*100}% Freeleech`
       }
       else{
          out[key]=node.getAttribute("value")
@@ -287,7 +287,7 @@ function processResults(data){
  <div class="resultcell"  >${new Date(e['publishDate']).toLocaleString("en-CA")}</div>
  <div class="resultcell"  >${(parseInt(e['size'])/1073741824).toFixed(2)} GB</div>
 <div class="resultcell"  ><a href=${e['downloadUrl']}>Download</a></div>
-<div class="resultcell"  ><a href=${e['guid']}>Details</a></div>
+<div class="resultcell"  ><a href=${e['infoUrl']}>Details</a></div>
   `
      Array.from(node.children).forEach((e,i)=>{
     e.style.gridColumnStart=i+1
@@ -320,7 +320,7 @@ function addNumbers(){
 function createMainDOM(){
   const box = document.createElement("div");
 box.setAttribute("id", "quicksearch");
-rowSplit=9
+rowSplit=10
 box.innerHTML=`
 <img id="toggle" src="${searchIcon}">
 </img>
@@ -371,13 +371,13 @@ box.innerHTML=`
 
   .resultitem{
   display: grid;
-  grid-template-columns: calc(100%/${rowSplit}) calc(100%/${rowSplit}) calc(100%/${rowSplit}) calc(100%/${rowSplit}) calc(100%/${rowSplit}) calc(100%/${rowSplit}) calc(100%/${rowSplit}) calc(100%/${rowSplit}) calc(100%/${rowSplit});
+  grid-template-columns: calc(100%/${rowSplit}) calc(100%/${rowSplit}) calc(100%/${rowSplit}) calc(100%/${rowSplit}) calc(100%/${rowSplit}) calc(100%/${rowSplit}) calc(100%/${rowSplit}) calc(100%/${rowSplit}) calc(100%/${rowSplit}) calc(100%/${rowSplit}) calc(100%/${rowSplit});
   border:solid white 5px;
   }
 
   #resulthead{
   display: grid;
-  grid-template-columns: calc(100%/${rowSplit}) calc(100%/${rowSplit}) calc(100%/${rowSplit}) calc(100%/${rowSplit}) calc(100%/${rowSplit}) calc(100%/${rowSplit}) calc(100%/${rowSplit}) calc(100%/${rowSplit}) calc(100%/${rowSplit});
+  grid-template-columns:calc(100%/${rowSplit}) calc(100%/${rowSplit}) calc(100%/${rowSplit}) calc(100%/${rowSplit}) calc(100%/${rowSplit}) calc(100%/${rowSplit}) calc(100%/${rowSplit}) calc(100%/${rowSplit}) calc(100%/${rowSplit}) calc(100%/${rowSplit}) calc(100%/${rowSplit});
   border:solid white 5px;
   }
 
