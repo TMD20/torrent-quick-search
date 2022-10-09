@@ -3,7 +3,7 @@
 // @namespace  https://github.com/TMD20/torrent-quick-search
 // @supportURL https://github.com/TMD20/torrent-quick-search
 // @downloadURL https://greasyfork.org/en/scripts/452502-torrent-quick-search
-// @version     1.3
+// @version     1.31
 // @description Toggle for Searching Torrents via Search aggegrator
 // @icon        https://cdn2.iconfinder.com/data/icons/flat-icons-19/512/Eye.png
 // @author      tmd
@@ -60,10 +60,6 @@ async function toggleSearch(e){
       }
        catch(error) {
             GM.notification(error.message, program,searchIcon)
-            document.querySelector("#torrent-quicksearch-toggle").style.height='2%'
-            document.querySelector("#torrent-quicksearch-toggle").style.width='2%'
-              document.querySelector("#torrent-quicksearch-toggle").style.marginBottom='-2%'
-            document.querySelector("#torrent-quicksearch-box").style.display = "none";
              obj=searchObj
              obj.cancel()
        }
@@ -77,17 +73,34 @@ searchObj={
     reqs=[]
     resetResultList()
     indexers=await getIndexers()
+    imdb=null
     getTableHead()
     if(customSearch==false){
       document.querySelector("#torrent-quicksearch-customsearch").value=getTitle()
     }
+
+
+
+
     document.querySelector("#torrent-quicksearch-msgnode").textContent="Fetching Results From Indexers"
-    document.querySelector("#torrent-quicksearch-imdbinfo").textContent=await getIMDB() || imdbParserFail
+    //Get Old IMDB
+    if( document.querySelector("#torrent-quicksearch-imdbinfo").textContent!=imdbParserFail &&
+       document.querySelector("#torrent-quicksearch-imdbinfo").textContent.length!=0&&
+       document.querySelector("#torrent-quicksearch-imdbinfo").textContent!="None"
+      )
+    {
+      imdb=document.querySelector("#torrent-quicksearch-imdbinfo").textContent
+    }
+    //Retrive New IMDB
+    else{
+        imdb=await getIMDB()
+        document.querySelector("#torrent-quicksearch-imdbinfo").textContent=imdb || imdbParserFail
+    }
 
     //reset count
     let count=[]
 
-    data=await Promise.allSettled(indexers.map((e)=>searchIndexer(e,indexers.length,count)));
+    data=await Promise.allSettled(indexers.map((e)=>searchIndexer(e,imdb,indexers.length,count)));
 
     errorMsgs=data.filter((e)=>e["status"]=="rejected").map((e)=>e["reason"].message)
     errorMsgs= [...new Set(errorMsgs)]
@@ -127,7 +140,7 @@ searchObj={
 
   }
 
-async function searchIndexer(indexerObj,total,count){
+async function searchIndexer(indexerObj,imdb,total,count){
    msg=null
    try{
 
@@ -144,9 +157,9 @@ async function searchIndexer(indexerObj,total,count){
       data=await searchHydra2Indexer(indexerObj)
     }
     msg=`Results fetched fom ${indexerObj["name"]}:${count.length+1}/${total} Indexers completed`
-    data=data.filter((e)=>imdbFilter(e, imdbCleanup(document.querySelector("#torrent-quicksearch-imdbinfo").textContent)))
+    data=data.filter((e)=>imdbFilter(e, imdbCleanup(imdb)))
     data.forEach((e)=>{
-    if(e["imdbId"]==0){
+    if(e["imdbId"]==0||e["imdbId"]==null){
       e["imdbId"]="Not Provided"
     }
 
@@ -565,8 +578,7 @@ else if(standardNames[window.location.host]=="themoviedb.org"){
 else{
 imdbNode=document.querySelector(siteParser["imdb"])
 if (imdbNode==null){
-  console.log(imdbParserFail)
-  return imdbParserFail
+  return null
 }
 imdb=imdbNode[siteParser["imdbAttrib"]]
 }
@@ -583,9 +595,13 @@ function titleCleanup(title){
 }
 
 function imdbCleanup(imdb){
-  if (imdb===null){
+  if (imdb===null
+      ||imdb===undefined
+      ||imdb===0
+     ||imdb==="0"){
     return imdb
   }
+  imdb=String(imdb)
   imdb=imdb.match(/[0-9]+/).toString()
   imdb=imdb.trim().replaceAll(/\n/g,"")
   imdb=imdb.replace(/imdb/i,"")
