@@ -28,3 +28,10 @@
 * Fixed Counter Bug
 * Add Addition Columns to Table
 * Stability Improvements
+
+1.31
+* Add Support For customize Window Size
+* Custom Search Support
+* IMDB Information
+* CSS Improvements
+* Notifications on Error
