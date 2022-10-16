@@ -35,6 +35,7 @@
 * IMDB Information
 * CSS Improvements
 * Notifications on Error
+
 1.4
 * Improved Performance
 * added timeout for long-running searches
