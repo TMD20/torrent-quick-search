@@ -3,7 +3,7 @@
 // @namespace  https://github.com/TMD20/torrent-quick-search
 // @supportURL https://github.com/TMD20/torrent-quick-search
 // @downloadURL https://greasyfork.org/en/scripts/452502-torrent-quick-search
-// @version     1.4
+// @version     1.41
 // @description Toggle for Searching Torrents via Search aggegrator
 // @icon        https://cdn2.iconfinder.com/data/icons/flat-icons-19/512/Eye.png
 // @author      tmd
@@ -134,6 +134,7 @@ searchObj = {
 
       try{
       await this.searchPromise
+      this.finalize()
 
       }
     		catch (error)
@@ -525,28 +526,28 @@ function addResultsTable(data)
 		node = document.createElement("span");
 		node.setAttribute("class", "torrent-quicksearch-resultitem")
 		node.innerHTML = `
-    <span class="torrent-quicksearch-resultcell"  style='font-size:${GM_config.get("fontsize",12)};grid-column-start:2' >
+    <span class="torrent-quicksearch-resultcell"  style='font-size:${GM_config.get("fontsize",12)};grid-column-start:1' >
         <a href=${e['DownloadUrl']}>Download</a>
          <br>
         <br>
         <a href=${e['InfoUrl']}>Details</a>
   </span>
-    <span class="torrent-quicksearch-resultcell"  style='font-size:${GM_config.get("fontsize",12)};grid-column-start:3'>
+    <span class="torrent-quicksearch-resultcell"  style='font-size:${GM_config.get("fontsize",12)};grid-column-start:2'>
             <a>Send to Sonarr</a>
         <br>
         <br>
         <a>Send to Radarr</a>
   </span>
-    <span class="torrent-quicksearch-resultcell"  style='font-size:${GM_config.get("fontsize",12)};grid-column-start:4' >?</span>
-    <span class="torrent-quicksearch-resultcell" style='font-size:${GM_config.get("fontsize",12)};grid-column-start:5' >${e['Title']}</span>
-    <span class="torrent-quicksearch-resultcell" style='font-size:${GM_config.get("fontsize",12)};grid-column-start:6'  >${e['Indexer']}</span>
-    <span class="torrent-quicksearch-resultcell" style='font-size:${GM_config.get("fontsize",12)};grid-column-start:7'>${e['Grabs']||"No Data"} </span>
-  <span class="torrent-quicksearch-resultcell" style='font-size:${GM_config.get("fontsize",12)};grid-column-start:8'>${e['Seeders']||"No Data"} </span>
-  <span class="torrent-quicksearch-resultcell" style='font-size:${GM_config.get("fontsize",12)};grid-column-start:9' >${e['Leechers']||"No Data"} </span>
- <span class="torrent-quicksearch-resultcell" style='font-size:${GM_config.get("fontsize",12)};grid-column-start:10'>${e['Cost']} </span>
- <span class="torrent-quicksearch-resultcell" style='font-size:${GM_config.get("fontsize",12)};grid-column-start:11' >${new Date(e['PublishDate']).toLocaleString("en-CA")}</span>
- <span class="torrent-quicksearch-resultcell" style='font-size:${GM_config.get("fontsize",12)};grid-column-start:12' >${(parseInt(e['Size'])/1073741824).toFixed(2)} GB</span>
-<span class="torrent-quicksearch-resultcell" style='font-size:${GM_config.get("fontsize",12)};grid-column-start:13' >${e['ImdbId']}</span>`
+    <span class="torrent-quicksearch-resultcell"  style='font-size:${GM_config.get("fontsize",12)};grid-column-start:3' >?</span>
+    <span class="torrent-quicksearch-resultcell" style='font-size:${GM_config.get("fontsize",12)};grid-column-start:4' >${e['Title']}</span>
+    <span class="torrent-quicksearch-resultcell" style='font-size:${GM_config.get("fontsize",12)};grid-column-start:5'  >${e['Indexer']}</span>
+    <span class="torrent-quicksearch-resultcell" style='font-size:${GM_config.get("fontsize",12)};grid-column-start:6'>${e['Grabs']||"No Data"} </span>
+  <span class="torrent-quicksearch-resultcell" style='font-size:${GM_config.get("fontsize",12)};grid-column-start:7'>${e['Seeders']||"No Data"} </span>
+  <span class="torrent-quicksearch-resultcell" style='font-size:${GM_config.get("fontsize",12)};grid-column-start:8' >${e['Leechers']||"No Data"} </span>
+ <span class="torrent-quicksearch-resultcell" style='font-size:${GM_config.get("fontsize",12)};grid-column-start:9'>${e['Cost']} </span>
+ <span class="torrent-quicksearch-resultcell" style='font-size:${GM_config.get("fontsize",12)};grid-column-start:10' >${new Date(e['PublishDate']).toLocaleString("en-CA")}</span>
+ <span class="torrent-quicksearch-resultcell" style='font-size:${GM_config.get("fontsize",12)};grid-column-start:11' >${(parseInt(e['Size'])/1073741824).toFixed(2)} GB</span>
+<span class="torrent-quicksearch-resultcell" style='font-size:${GM_config.get("fontsize",12)};grid-column-start:12' >${e['ImdbId']}</span>`
 
 		processSonarrNode(node, e)
 		processRadarrNode(node, e)
