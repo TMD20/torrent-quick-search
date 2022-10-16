@@ -35,3 +35,12 @@
 * IMDB Information
 * CSS Improvements
 * Notifications on Error
+1.4
+* Improved Performance
+* added timeout for long-running searches
+* Improve Drag Perforamnce on IMDB BHD
+* Sonarr Support 
+* Radarr Support
+* Mitigation of Timing Bugs
+* Batch Some DOM updates
+
