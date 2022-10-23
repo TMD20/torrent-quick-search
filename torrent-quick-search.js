@@ -3,7 +3,7 @@
 // @namespace  https://github.com/TMD20/torrent-quick-search
 // @supportURL https://github.com/TMD20/torrent-quick-search
 // @downloadURL https://greasyfork.org/en/scripts/452502-torrent-quick-search
-// @version     1.50
+// @version     1.51
 // @description Toggle for Searching Torrents via Search aggegrator
 // @icon        https://cdn2.iconfinder.com/data/icons/flat-icons-19/512/Eye.png
 // @author      tmd
@@ -82,7 +82,6 @@ searchObj = {
 				{
 					reject(errorMsgs.join("\n"))
 				}
-				addNumbers()
 				resolve()
 
 			}
@@ -513,8 +512,6 @@ function getTableHead()
 	node.innerHTML = `
        <span class="torrent-quicksearch-resultcell"  >Links</span>
        <span class="torrent-quicksearch-resultcell"  >Clients</span>
-
-    <span class="torrent-quicksearch-resultcell">Number</span>
     <span class="torrent-quicksearch-resultcell"  >Title</span>
     <span class="torrent-quicksearch-resultcell"  >Indexer</span>
     <span class="torrent-quicksearch-resultcell"  >Grabs</span>
@@ -572,16 +569,15 @@ function addResultsTable(data)
 
 
   </span>
-    <span class="torrent-quicksearch-resultcell"  style='grid-column-start:3' >?</span>
-    <span class="torrent-quicksearch-resultcell" style='grid-column-start:4' >${e['Title']}</span>
-    <span class="torrent-quicksearch-resultcell" style='grid-column-start:5'  >${e['Indexer']}</span>
-    <span class="torrent-quicksearch-resultcell" style='grid-column-start:6'>${e['Grabs']||"No Data"} </span>
-  <span class="torrent-quicksearch-resultcell" style='grid-column-start:7'>${e['Seeders']||"No Data"} </span>
-  <span class="torrent-quicksearch-resultcell" style='grid-column-start:8' >${e['Leechers']||"No Data"} </span>
- <span class="torrent-quicksearch-resultcell" style='grid-column-start:9'>${e['Cost']} </span>
- <span class="torrent-quicksearch-resultcell" style='grid-column-start:10' >${new Date(e['PublishDate']).toLocaleString("en-CA")}</span>
- <span class="torrent-quicksearch-resultcell" style='grid-column-start:11' >${(parseInt(e['Size'])/1073741824).toFixed(2)} GB</span>
-<span class="torrent-quicksearch-resultcell" style='grid-column-start:12' >${e['ImdbId']}</span>`
+    <span class="torrent-quicksearch-resultcell" style='grid-column-start:3' >${e['Title']}</span>
+    <span class="torrent-quicksearch-resultcell" style='grid-column-start:4'  >${e['Indexer']}</span>
+    <span class="torrent-quicksearch-resultcell" style='grid-column-start:5'>${e['Grabs']||"No Data"} </span>
+  <span class="torrent-quicksearch-resultcell" style='grid-column-start:6'>${e['Seeders']||"No Data"} </span>
+  <span class="torrent-quicksearch-resultcell" style='grid-column-start:7' >${e['Leechers']||"No Data"} </span>
+ <span class="torrent-quicksearch-resultcell" style='grid-column-start:8'>${e['Cost']} </span>
+ <span class="torrent-quicksearch-resultcell" style='grid-column-start:9' >${new Date(e['PublishDate']).toLocaleString("en-CA")}</span>
+ <span class="torrent-quicksearch-resultcell" style='grid-column-start:10' >${(parseInt(e['Size'])/1073741824).toFixed(2)} GB</span>
+<span class="torrent-quicksearch-resultcell" style='grid-column-start:11' >${e['ImdbId']}</span>`
 
       let selNode=node.querySelector("select")
 
@@ -608,16 +604,7 @@ function resetResultList()
 	document.querySelector("#torrent-quicksearch-resultlist").textContent = ""
 }
 
-function addNumbers()
-{
-	Array.from(document.querySelectorAll(".torrent-quicksearch-resultitem")).forEach((e, i) =>
-		{
-			node = Array.from(e.children).filter((e) => e["textContent"] == "?")[0]
-			node.textContent = `${i+1}`
-		}
 
-	)
-}
 
 
 
