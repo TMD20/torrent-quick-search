@@ -50,4 +50,6 @@
 * Semaphores for fetch data. Limited to 10 request at a time
 * Bug Fixes/Improved Performance
 * Use pageIMDB for elements without imdb from searchEngine
+* Added tvdb + tmdbid information for arr clients
+
 
