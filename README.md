@@ -5,7 +5,9 @@ We can also customize results by filtering indexers that we don't want, or we ca
 The toggle shrinks when not in use, and can be moved around if desired
 
 
-![image](https://user-images.githubusercontent.com/109320934/193980736-31fb834a-8c6d-4776-aa6f-f8a739efaa52.png)
+![image](https://user-images.githubusercontent.com/109320934/197415736-8228d0a3-cdf2-4eba-8cdd-54e4e77a4fa9.png)
+
+
 
 Suported Sites
 * Blutopia
