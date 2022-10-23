@@ -52,4 +52,6 @@
 * Use pageIMDB for elements without imdb from searchEngine
 * Added tvdb + tmdbid information for arr clients
 
+1.51
+* removed number column
 
