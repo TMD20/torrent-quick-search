@@ -45,3 +45,9 @@
 * Mitigation of Timing Bugs
 * Batch Some DOM updates
 
+1.5
+* Added Support for Multiple Sonarr and Radarr Clients
+* Semaphores for fetch data. Limited to 10 request at a time
+* Bug Fixes/Improved Performance
+* Use pageIMDB for elements without imdb from searchEngine
+
