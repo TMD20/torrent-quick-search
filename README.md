@@ -4,8 +4,7 @@ We can also customize results by filtering indexers that we don't want, or we ca
 
 The toggle shrinks when not in use, and can be moved around if desired
 
-
-![image](https://user-images.githubusercontent.com/109320934/197415736-8228d0a3-cdf2-4eba-8cdd-54e4e77a4fa9.png)
+![image](https://user-images.githubusercontent.com/109320934/197416103-30c0887e-4afd-46ee-b7f0-eb2fb85757ad.png)
 
 
 
