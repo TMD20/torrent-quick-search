@@ -3,7 +3,7 @@
 // @namespace  https://github.com/TMD20/torrent-quick-search
 // @supportURL https://github.com/TMD20/torrent-quick-search
 // @downloadURL https://greasyfork.org/en/scripts/452502-torrent-quick-search
-// @version     1.54
+// @version     1.55
 // @description Toggle for Searching Torrents via Search aggegrator
 // @icon        https://cdn2.iconfinder.com/data/icons/flat-icons-19/512/Eye.png
 // @author      tmd
@@ -242,7 +242,7 @@ function searchIndexer(indexerObj, imdb, total, count)
 			}
 
 		})
-		data = data.filter((e) => currSiteFilter(e["infoUrl"]))
+		data = data.filter((e) => currSiteFilter(e["InfoUrl"]))
 
 
 		addResultsTable(data)
@@ -258,7 +258,8 @@ function searchIndexer(indexerObj, imdb, total, count)
 
 async function searchProwlarrIndexer(indexer)
 {
-	req = await fetch(getSearchURLProwlarr(indexer["ID"]),
+	console.log(getSearchURLProwlarr(indexer["ID"]))
+  req = await fetch(getSearchURLProwlarr(indexer["ID"]),
 	{
 		"timeout": indexerSearchTimeout
 	})
@@ -2118,16 +2119,18 @@ function overideBuiltins()
 {
   URL = class extends URL{
      constructor(url,base) {
-       	if(base!=undefined &&base.match(/(http|https)/)==null){
+        if(url==undefined&&base==undefined){
+          null
+        }
+       	else if(base!=undefined &&base.match(/(http|https)/)==null){
           base=`http://${base}`
         }
 
-       	if(base==undefined &&url.match(/(http|https)/)==null){
+       	else if(base==undefined &&url.match(/(http|https)/)==null){
           url=`http://${url}`
         }
-       else {
-         super(url,base);
-       }
+        super(url,base);
+
      }
    };
 
