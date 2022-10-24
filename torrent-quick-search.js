@@ -43,6 +43,11 @@ function recreateController()
 {
 	controller = new AbortController();
 }
+function semaphoreLeave(){
+  if(sem &&sem.current>0){
+    sem.leave()
+  }
+}
 
 searchObj = {
 	ready: true,
@@ -131,13 +136,14 @@ searchObj = {
             	resetResultList()
 	resetSearchDOM()
             getTableHead()
-    },200)
+    },0)
 
-        setTimeout(()=>{
 
-    },300)
 
     setTimeout(async()=>{
+      //reset
+      sem=semaphore(10)
+
 
 
 
@@ -157,7 +163,7 @@ searchObj = {
 
 		}
 
-    },500)
+    },100)
 
 
 	},
@@ -226,7 +232,7 @@ function searchIndexer(indexerObj, imdb, total, count)
 		}
 
 
-		msg = `Results fetched fom ${indexerObj["name"]}:${count.length+1}/${total} Indexers completed`
+		msg = `Results fetched fom ${indexerObj["Name"]}:${count.length+1}/${total} Indexers completed`
 		data = data.filter((e) => imdbFilter(e, imdbCleanup(imdb)))
 		data.forEach((e) =>
 		{
@@ -240,7 +246,7 @@ function searchIndexer(indexerObj, imdb, total, count)
 
 
 		addResultsTable(data)
-		count.push(indexerObj["id"])
+		count.push(indexerObj["ID"])
 		document.querySelector("#torrent-quicksearch-msgnode").textContent = msg
 		console.log(msg)
 		resolve(data)
@@ -252,11 +258,11 @@ function searchIndexer(indexerObj, imdb, total, count)
 
 async function searchProwlarrIndexer(indexer)
 {
-	req = await fetch(getSearchURLProwlarr(indexer["id"]),
+	req = await fetch(getSearchURLProwlarr(indexer["ID"]),
 	{
 		"timeout": indexerSearchTimeout
 	})
-	let data = JSON.parse(req.responseText)
+	let data = JSON.parse(req.responseText) ||[]
   let dataCopy=[...data]
   let promiseArray=[]
   let x=Number.MAX_VALUE
@@ -292,11 +298,11 @@ async function searchProwlarrIndexer(indexer)
 
 async function searchJackettIndexer(indexer)
 {
-	req = await fetch(getSearchURLJackett(indexer["id"]),
+	req = await fetch(getSearchURLJackett(indexer["ID"]),
 	{
 		"timeout": indexerSearchTimeout
 	})
-	let data = JSON.parse(req.responseText)["Results"]
+	let data = JSON.parse(req.responseText)["Results"] ||[]
   let dataCopy=[...data]
   let promiseArray=[]
   let x=Number.MAX_VALUE
@@ -324,11 +330,11 @@ async function searchJackettIndexer(indexer)
 }
 async function searchHydra2Indexer(indexer)
 {
-	req = await fetch(getSearchURLHydraTor(indexer["id"]),
+	req = await fetch(getSearchURLHydraTor(indexer["ID"]),
 	{
 		"timeout": indexerSearchTimeout
 	})
-	req2 = await fetch(getSearchURLHydraNZB(indexer["id"]),
+	req2 = await fetch(getSearchURLHydraNZB(indexer["ID"]),
 	{
 		"timeout": indexerSearchTimeout
 	})
@@ -337,6 +343,9 @@ async function searchHydra2Indexer(indexer)
   let dataCopy=[...data]
   let promiseArray=[]
   let x=Number.MAX_VALUE
+
+
+
 	while(dataCopy.length){
  newData  = await Promise.allSettled(dataCopy.splice(0, Math.min(dataCopy.length, x)).map(async (e) =>
 			//array is final dictkey,queryselector,attribute
@@ -418,12 +427,12 @@ function fetch(url,
 				'headers': headers,
 				onload: response =>
 				{
-					sem.leave()
+					semaphoreLeave()
           resolve(response)
 				},
 				onerror: response =>
 				{
-          sem.leave()
+           semaphoreLeave()
 					reject(response.responseText)
 				},
 			})
@@ -1166,10 +1175,15 @@ async function getIndexers()
 
 }
 
+
 async function getIndexersJackett()
 {
-	cachedIndexers = GM_getValue("jackettindexers", "none")
-	if (Date.now() - (cachedIndexers?.date || 0) < day)
+	key="jackettIndexers"
+  cachedIndexers = GM_getValue(key, "none")
+  if(cachedIndexers=="none"){
+    null
+  }
+	else if (Date.now() - (cachedIndexers?.date || 0) < day)
 	{
 		return cachedIndexers["indexers"]
 	}
@@ -1182,21 +1196,16 @@ async function getIndexersJackett()
 	indexerURL = `${baseURL}?${params.toString()}`
 	req = await fetch(indexerURL)
 	data = JSON.parse(req.responseText)['Indexers']
-	output = []
-	//Same keys as Prowlarr
-	for (i in data)
-	{
-		output.push(
-		{
-			"name": data[i]["Name"],
-			"id": data[i]["ID"]
-		})
-
-	}
-	GM_setValue("jacketIndexers",
+	output=data.map((e)=>{
+    let dict={}
+    dict["Name"]=e["Name"]
+    dict["ID"]=e["ID"]
+    return dict
+  })
+	GM_setValue(key,
 	{
 		"date": Date.now(),
-		"indexers": data
+		"indexers": output
 	})
 	return output
 
@@ -1204,8 +1213,12 @@ async function getIndexersJackett()
 
 async function getIndexersProwlarr()
 {
-	cachedIndexers = GM_getValue("prowlarrindexers", "none")
-	if (Date.now() - (cachedIndexers?.date || 0) < day)
+	key="prowlarrIndexers",
+  cachedIndexers = GM_getValue(key,"none")
+    if(cachedIndexers=="none"){
+    null
+  }
+	else if (Date.now() - (cachedIndexers?.date || 0) < day)
 	{
 		return cachedIndexers["indexers"]
 	}
@@ -1218,12 +1231,18 @@ async function getIndexersProwlarr()
 	req = await fetch(indexerURL)
 	data = JSON.parse(req.responseText)
 	data = data.sort(prowlarIndexSortHelper)
-	GM_setValue("prowlarrindexers",
+    output=data.map((e)=>{
+    let dict={}
+    dict["Name"]=e["name"]
+    dict["ID"]=e["id"]
+    return dict
+  })
+	GM_setValue(key,
 	{
 		"date": Date.now(),
-		"indexers": data
+		"indexers": output
 	})
-	return data
+	return output
 
 }
 
@@ -1242,8 +1261,12 @@ function prowlarIndexSortHelper(a, b)
 
 async function getIndexersHydra()
 {
-	cachedIndexers = GM_getValue("hydraindexers", "none")
-	if (Date.now() - (cachedIndexers?.date || 0) < day)
+	key="hydraIndexers"
+  cachedIndexers = GM_getValue(key, "none")
+  if(cachedIndexers=="none"){
+    null
+  }
+	else if (Date.now() - (cachedIndexers?.date || 0) < day)
 	{
 		return cachedIndexers["indexers"]
 	}
@@ -1253,18 +1276,14 @@ async function getIndexersHydra()
 	indexerURL = `${baseURL}?${params.toString()}`
 	req = await fetch(indexerURL)
 	data = JSON.parse(req.responseText)
-	output = []
-	//Same keys as Prowlarr
-	for (i in data)
-	{
-		output.push(
-		{
-			"name": data[i]["indexer"],
-			"id": data[i]["indexer"]
-		})
+  output=data.map((e)=>{
+    let dict={}
+    dict["Name"]=e["indexer"]
+    dict["ID"]=e["indexer"]
+    return dict
+  })
 
-	}
-	GM_setValue("hydraindexers",
+	GM_setValue(key,
 	{
 		"date": Date.now(),
 		"indexers": output
@@ -1289,7 +1308,7 @@ function listFilter(allIndexers)
 
 	for (let i in allIndexers)
 	{
-		if (selectedIndexers.has(allIndexers[i]["id"]))
+		if (selectedIndexers.has(allIndexers[i]["ID"]))
 		{
 			output.push(allIndexers[i])
 		}
@@ -1319,9 +1338,9 @@ function indexerCacheHelper(allIndexers)
 		for (let i in allIndexers)
 		{
 
-			if (allIndexers[i]["name"].match(new RegExp(indexerNames[j], 'i')))
+			if (allIndexers[i]["Name"].match(new RegExp(indexerNames[j], 'i')))
 			{
-				GM_setValue(key, allIndexers[i]["id"])
+				GM_setValue(key, allIndexers[i]["ID"])
 			}
 		}
 
@@ -1330,7 +1349,7 @@ function indexerCacheHelper(allIndexers)
 
 function blackListHelper(allIndexers)
 {
-	indexerID = new Set(allIndexers.map((e) => e["id"]))
+	indexerID = new Set(allIndexers.map((e) => e["ID"]))
 	indexerNames = GM_config.get('indexers').split(",").map((e) => e.trim())
 
 	for (let j in indexerNames)
@@ -1493,7 +1512,6 @@ async function mouseClicksProcess()
 		return
 	}
 	lastClick = Date.now()
-  sem=semaphore(10)
 	await searchObj.toggleSearch()
 }
 //Reset Mouse Events
@@ -2046,17 +2064,6 @@ day = 86400000
 customSearch = false
 
 let sem = null
-// var server = require('http').createServer(function(req, res) {
-// 	sem.take(function() {
-// 		expensive_database_operation(function(err, res) {
-// 			sem.leave();
-
-// 			if (err) return res.end("Error");
-
-// 			return res.end(res);
-// 		});
-// 	});
-// });
 
 
 
