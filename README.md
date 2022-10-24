@@ -4,6 +4,21 @@ We can also customize results by filtering indexers that we don't want, or we ca
 
 The toggle shrinks when not in use, and can be moved around if desired
 
+# Features
+* Toggle Search based on info gathered on Page
+* Resizable+Moveable Element
+* Can Send downloads directly to clients
+* Can Store Multiple clients 
+* Supports Multiple Search Aggregator
+* Faster Results through Concurrent searching
+  - Up to 10 request at once
+  - Results are available for each indexers as soon as they return
+  - Slow indexers won't block
+* Option to change Search query via customsearchbox
+
+
+
+
 # Suported Sites
 * Blutopia
 * Animebytes
@@ -15,6 +30,10 @@ The toggle shrinks when not in use, and can be moved around if desired
 * Prowlarr
 * Jackett
 * Hydra
+
+# Clients Supported
+* Sonarr
+* Radarr
 
 # How Use
 * Go to Supported Site
