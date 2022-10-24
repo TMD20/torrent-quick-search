@@ -54,4 +54,9 @@
 
 1.51
 * removed number column
+1.52 
+* CSS improvements
+* Lock header position on table
+* Indexer cached fix
+* Added semaphore fail safe
 
