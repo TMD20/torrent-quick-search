@@ -3,7 +3,7 @@
 // @namespace  https://github.com/TMD20/torrent-quick-search
 // @supportURL https://github.com/TMD20/torrent-quick-search
 // @downloadURL https://greasyfork.org/en/scripts/452502-torrent-quick-search
-// @version     1.56
+// @version     1.57
 // @description Toggle for Searching Torrents via Search aggegrator
 // @icon        https://cdn2.iconfinder.com/data/icons/flat-icons-19/512/Eye.png
 // @author      tmd
@@ -24,11 +24,10 @@
 // @match https://beyond-hd.me/torrents/*
 // @match https://beyond-hd.me/library/title/*
 // @match https://imdb.com/title/*
-// @require https://cdn.jsdelivr.net/npm/semaphore@1.1.0/lib/semaphore.min.js
-
 // @match https://www.imdb.com/title/*
 // @match https://www.themoviedb.org/movie/*
 // @match https://www.themoviedb.org/tv/*
+// @require https://cdn.jsdelivr.net/npm/semaphore@1.1.0/lib/semaphore.min.js
 // @license MIT
 // ==/UserScript==
 
@@ -407,13 +406,15 @@ function fetch(url,
 	method = "GET",
 	data = null,
 	headers = {},
-	timeout = 90000
+	timeout = 90000,
+  semaphore=true
 } = {})
 
 {
-     return new Promise((resolve, reject) =>
-		{
-  sem.take(async()=>{
+    async function semforeFetch(){
+           return new Promise((resolve, reject) =>{
+           sem.take(async()=>{
+
 
 			controller.signal.addEventListener("abort", () =>
 			{
@@ -437,12 +438,55 @@ function fetch(url,
 					reject(response.responseText)
 				},
 			})
-		}
-
-	)
+		})})}
 
 
-  })
+
+
+
+
+
+
+
+
+      async function normalFetch(){
+
+      return new Promise((resolve,reject)=>{
+       		controller.signal.addEventListener("abort", () =>
+			{
+				reject(AbortError)
+			});
+			setTimeout(() => reject(AbortError), timeout)
+			GM.xmlhttpRequest(
+			{
+				'method': method,
+				'url': url,
+				'data': data,
+				'headers': headers,
+				onload: response =>
+				{
+          resolve(response)
+				},
+				onerror: response =>
+				{
+					reject(response.responseText)
+				},
+			})
+      })}
+
+
+
+
+  if(semaphore){
+   return semforeFetch()
+
+  }
+
+
+  else{
+    return normalFetch()
+  }
+
 
 
 }
@@ -1589,7 +1633,8 @@ async function sendSonarrClient(releaseData,clientData)
 		res = await fetch(getSonarrURL(clientData.clientURL,clientData.clientAPI),
 		{
 			"method": "post",
-			"data": JSON.stringify(releaseData)
+			"data": JSON.stringify(releaseData),
+      "semaphore":false
 		})
 
 		if (res.status != 200)
@@ -1637,7 +1682,9 @@ async function sendRadarrClient(releaseData,clientData)
 		{
 			"method": "post",
 			"data": JSON.stringify(releaseData),
-      "headers":{"content-type":"application/json"}
+      "headers":{"content-type":"application/json"},
+      "semaphore":false
+
 		})
 
 		if (res.status != 200)
