@@ -6,7 +6,7 @@ The toggle shrinks when not in use, and can be moved around if desired
 
 ![image](https://user-images.githubusercontent.com/109320934/197426136-949dd2fb-4888-4429-9dc6-7baeaa3f5a75.png)
 
-![image](https://user-images.githubusercontent.com/109320934/197426193-855049f4-20a8-4314-b85a-11fff2af2489.png)
+![image](https://user-images.githubusercontent.com/109320934/197426269-fcc31092-fb47-49ac-b81e-1150fcf48e69.png)
 
 
 Suported Sites
