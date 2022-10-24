@@ -4,8 +4,9 @@ We can also customize results by filtering indexers that we don't want, or we ca
 
 The toggle shrinks when not in use, and can be moved around if desired
 
-![image](https://user-images.githubusercontent.com/109320934/197416103-30c0887e-4afd-46ee-b7f0-eb2fb85757ad.png)
+![image](https://user-images.githubusercontent.com/109320934/197426136-949dd2fb-4888-4429-9dc6-7baeaa3f5a75.png)
 
+![image](https://user-images.githubusercontent.com/109320934/197426193-855049f4-20a8-4314-b85a-11fff2af2489.png)
 
 
 Suported Sites
@@ -17,6 +18,8 @@ Suported Sites
 
 Support Search Aggregator
 * Prowlarr
+* Jackett
+* Hydra
 
 How Use
 * Go to Supported Site
