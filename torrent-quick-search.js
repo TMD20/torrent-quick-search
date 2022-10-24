@@ -3,7 +3,7 @@
 // @namespace  https://github.com/TMD20/torrent-quick-search
 // @supportURL https://github.com/TMD20/torrent-quick-search
 // @downloadURL https://greasyfork.org/en/scripts/452502-torrent-quick-search
-// @version     1.55
+// @version     1.56
 // @description Toggle for Searching Torrents via Search aggegrator
 // @icon        https://cdn2.iconfinder.com/data/icons/flat-icons-19/512/Eye.png
 // @author      tmd
@@ -1563,7 +1563,7 @@ Functions For Sending Downloads to Clients
 function arrIMDBHelper(releaseData){
       pageIMDB= document.querySelector("#torrent-quicksearch-imdbinfo").textContent
      if(releaseData["ImdbId"]!=imdbParserFail){
-     return releaseData["ImdbId"]
+     return parseInt(releaseData["ImdbId"])
     }
   else if (pageIMDB!=imdbParserFail&&pageIMDB!=null){
       return parseInt(pageIMDB)
@@ -1576,9 +1576,12 @@ function arrIMDBHelper(releaseData){
 
 async function sendSonarrClient(releaseData,clientData)
 {
-   releaseData["ImdbId"]=arrIMDBHelper(releaseData)
-		releaseData["TvdbId"]=await tmdbTVDBConvertor(releaseData["ImdbId"]),
+    releaseData["ImdbId"]=arrIMDBHelper(releaseData)
+    if(GM_getValue(key, "none")!="none"){
+     		releaseData["TvdbId"]=await tmdbTVDBConvertor(releaseData["ImdbId"]),
 		releaseData["tmdbId"]	=(await imdbTMDBConvertor(releaseData["ImdbId"]))?.id
+    }
+
 
 
 
@@ -1599,13 +1602,13 @@ async function sendSonarrClient(releaseData,clientData)
 		finalMsg = data.reduce(
 			(prev, curr, index) =>
 			{
-				if (curr["rejected"] == true)
+				if (curr["rejections"].length>0)
 				{
 					epNums = curr["mappedEpisodeNumbers"].length > 0 ? curr["mappedEpisodeNumbers"].join(",") : "No Episodes"
 					errorMsg = [`${curr["seriesTitle"]} Season ${curr["seasonNumber"]} Episodes ${epNums}`, `Status Rejected: ${curr["rejections"].join(",")}`]
 					return `${prev}\n\[${errorMsg.join("\n")}\]`
 				}
-				if (curr["approved"] == true)
+				else if (curr["approved"] == true)
 				{
 					acceptMsg = `Added ${curr["title"]} to client`
 					return `${prev}\n${acceptMsg}`
@@ -1621,9 +1624,14 @@ async function sendSonarrClient(releaseData,clientData)
 async function sendRadarrClient(releaseData,clientData)
 {
 
-     releaseData["ImdbId"]=arrIMDBHelper(releaseData)
-		releaseData["TvdbId"]=await tmdbTVDBConvertor(releaseData["ImdbId"]),
+
+
+
+   releaseData["ImdbId"]=arrIMDBHelper(releaseData)
+    if(GM_getValue(key, "none")!="none"){
+     		releaseData["TvdbId"]=await tmdbTVDBConvertor(releaseData["ImdbId"]),
 		releaseData["tmdbId"]	=(await imdbTMDBConvertor(releaseData["ImdbId"]))?.id
+    }
   res = await fetch(getRadarrURL(clientData.clientURL,clientData.clientAPI),
 
 		{
@@ -1966,7 +1974,8 @@ GM_config.init(
 				'type': 'radio',
 				'options': ['black', 'white'],
 				'label': 'Indexers ListType',
-				'title': 'Use White list if you want to manually approve indexers\nUse Black list if you want to use all Indexers, and just have few or none to disable'
+				'title': 'Use White list if you want to manually approve indexers\nUse Black list if you want to use all Indexers, and just have few or none to disable',
+         'default': 'black'
 
 			},
 
@@ -1976,7 +1985,8 @@ GM_config.init(
 
 				'type': 'radio',
 				'options': ['true', 'false'],
-				'title': 'Should Results From Current Site be Filtered Out'
+				'title': 'Should Results From Current Site be Filtered Out',
+        'default': 'false'
 			},
 
 
