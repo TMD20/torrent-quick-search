@@ -39,6 +39,8 @@ The toggle shrinks when not in use, and can be moved around if desired
 # How Use
 * Go to Supported Site
 * Make Sure to use your script manager to setup required settings
+THis can usually be done by clicking on icon in menu
+Required Settings
   * Search URL
   * Search Program
   * Search API
