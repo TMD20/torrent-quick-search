@@ -15,6 +15,7 @@ The toggle shrinks when not in use, and can be moved around if desired
   - Results are available for each indexers as soon as they return
   - Slow indexers won't block
 * Option to change Search query via customsearchbox
+* Indexer Whitelist or Blacklist
 
 
 
