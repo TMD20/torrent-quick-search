@@ -4,24 +4,19 @@ We can also customize results by filtering indexers that we don't want, or we ca
 
 The toggle shrinks when not in use, and can be moved around if desired
 
-![image](https://user-images.githubusercontent.com/109320934/197426136-949dd2fb-4888-4429-9dc6-7baeaa3f5a75.png)
-
-![image](https://user-images.githubusercontent.com/109320934/197426269-fcc31092-fb47-49ac-b81e-1150fcf48e69.png)
-
-
-Suported Sites
+# Suported Sites
 * Blutopia
 * Animebytes
 * BHD
 * IMDB
 * TMDB
 
-Support Search Aggregator
+ # Support Search Aggregator
 * Prowlarr
 * Jackett
 * Hydra
 
-How Use
+# How Use
 * Go to Supported Site
 * Make Sure to use your script manager to setup required settings
   * Search URL
@@ -31,6 +26,11 @@ How Use
     * For example movie's main page
     * A page for a single torrent
     
+# Gallery 
+
+![image](https://user-images.githubusercontent.com/109320934/197426136-949dd2fb-4888-4429-9dc6-7baeaa3f5a75.png)
+
+![image](https://user-images.githubusercontent.com/109320934/197426269-fcc31092-fb47-49ac-b81e-1150fcf48e69.png)
 
 
 
