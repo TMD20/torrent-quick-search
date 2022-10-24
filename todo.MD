@@ -10,6 +10,7 @@ Todo/Future Features
 * Add Customizable Fields
 * Allow Seeing History of Past Searches
 * Allow full customization of data
+* Test Suit
 
 
 
