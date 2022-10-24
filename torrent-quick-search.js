@@ -3,7 +3,7 @@
 // @namespace  https://github.com/TMD20/torrent-quick-search
 // @supportURL https://github.com/TMD20/torrent-quick-search
 // @downloadURL https://greasyfork.org/en/scripts/452502-torrent-quick-search
-// @version     1.51
+// @version     1.52
 // @description Toggle for Searching Torrents via Search aggegrator
 // @icon        https://cdn2.iconfinder.com/data/icons/flat-icons-19/512/Eye.png
 // @author      tmd
@@ -127,10 +127,19 @@ searchObj = {
       recreateController()
 			await this.setup()
 
-    setTimeout(async()=>{
-       	resetResultList()
+    setTimeout(()=>{
+            	resetResultList()
 	resetSearchDOM()
             getTableHead()
+    },200)
+
+        setTimeout(()=>{
+
+    },300)
+
+    setTimeout(async()=>{
+
+
 
       try{
       await this.searchPromise
@@ -148,7 +157,7 @@ searchObj = {
 
 		}
 
-    },0)
+    },500)
 
 
 	},
@@ -159,7 +168,13 @@ searchObj = {
 			this.nomatchID = setTimeout(() => document.querySelector("#torrent-quicksearch-resultlist").textContent = "No Matches", 1000)
 		}
 		this.finalmsgID = setTimeout(() => document.querySelector("#torrent-quicksearch-msgnode").textContent = "Finished", 1000)
-		this.removemsgnodeID = setTimeout(() => document.querySelector("#torrent-quicksearch-msgnode").style.display = "none", 3000)
+		this.removemsgnodeID = setTimeout(() => {
+      document.querySelector("#torrent-quicksearch-msgnode").style.display = "none", 3000
+            document.querySelector("#torrent-quicksearch-msgnode").textContent = ""
+
+    })
+
+
 
 	},
 	async toggleSearch()
@@ -485,7 +500,7 @@ async function setIMDBNode(){
 function resetSearchDOM()
 {
 	document.querySelector("#torrent-quicksearch-imdbinfo").textContent = "None"
-	document.querySelector("#torrent-quicksearch-msgnode").textContent = ""
+	document.querySelector("#torrent-quicksearch-msgnode").textContent = "Waiting"
 }
 
 function hideDisplay()
@@ -624,6 +639,7 @@ function createMainDOM()
   <img id="torrent-quicksearch-toggle" src="${searchIcon}"></img>
 <div id="torrent-quicksearch-box">
 <div id="torrent-quicksearch-content">
+  <div>
   <div id="torrent-quicksearch-msgnode"></div>
   <div id="torrent-quicksearch-custombox">
         <div>
@@ -633,12 +649,14 @@ function createMainDOM()
     <div id="torrent-quicksearch-imdbinfo">None</div>
     <button id="torrent-quicksearch-customsearchbutton">Custom Search</button>
         </div>
+  </div>
+    <div id="torrent-quicksearch-resultheader"></div>
+</div>
 
-    </div>
 
-  <div id="torrent-quicksearch-resultheader"></div>
   <div id="torrent-quicksearch-resultlist">
   </div>
+
     </div>
 </div>
 <style>
@@ -647,6 +665,7 @@ function createMainDOM()
   --grid-size: max(calc(50vw/${rowSplit}),calc(100%/${rowSplit}));
   --icon-size:${iconSmall}%;
     --icon-padding:${paddingSmall}%;
+
   }
    #torrent-quicksearch-overlay {
        position: sticky;
@@ -666,7 +685,7 @@ function createMainDOM()
    }
 
  * {
-    font-size:${GM_config.get("fontsize",12)};
+    font-size:${GM_config.get("fontsize",12)}px;
   }
 
 
@@ -704,12 +723,15 @@ function createMainDOM()
     background-color:#FFFFFF;
     width:calc(var(--grid-size)*${rowSplit});
     display:none;
+  height:calc(((${GM_config.get("fontsize",12)}em) + 2em)/16);
+
   }
 
      #torrent-quicksearch-custombox {
       background-color:#FFFFFF;
       width:calc(var(--grid-size)*${rowSplit});
          pointer-events:all;
+         height:calc(((${GM_config.get("fontsize",12)}em) + 2em) * (2/16));
 
 
    }
@@ -749,19 +771,31 @@ function createMainDOM()
   color: white;
   text-align: center;
   text-decoration: none;
-  font-size: 16px;
+  font-size: ${(GM_config.get("fontsize",12)+2)}px;
 }
 
   #torrent-quicksearch-content {
-      pointer-events:all;
-
-  background-color: #d5cbcb;
-  scrollbar-color: white;
+  pointer-events:all;
+  background-color:  #D7C49EFF;
    direction:ltr;
-  overflow:scroll;
   height:100%;
   width:100%;
 }
+
+  #torrent-quicksearch-content>div:nth-child(2) {
+  scrollbar-color: white;
+  overflow:scroll;
+  width:100%;
+  height:calc(100% - ((${GM_config.get("fontsize",12)}em) + 2em)*(4/16));
+
+}
+
+    #torrent-quicksearch-content>div:nth-child(1) {
+  width:100%;
+   background-color: #B1D79E;
+}
+
+
 
     #torrent-quicksearch-resultlist{
     border:solid white 5px;
@@ -775,6 +809,10 @@ function createMainDOM()
     width:calc((var(--grid-size)*${rowSplit})-10);
   }
 
+  .torrent-quicksearch-resultitem{
+    font-size:${GM_config.get("fontsize",12)}px;
+  }
+
   #torrent-quicksearch-resultlist>.torrent-quicksearch-resultitem:nth-child(even) {
   background-color: #D7C49EFF;
 }
@@ -783,7 +821,9 @@ function createMainDOM()
 }
   #torrent-quicksearch-resultheader{
 background-color: #B1D79E;
-  font-size:${GM_config.get("fontsize",12)+2};
+  font-size:${GM_config.get("fontsize",12)+2}px;
+      height:calc(((${GM_config.get("fontsize",12)}em) + 2em)*(2/16));
+
   }
 
   .torrent-quicksearch-resultcell{
@@ -798,7 +838,7 @@ overflow-wrap:break-word;
   border: none;
   text-align: center;
   text-decoration: none;
- font-size:${GM_config.get("fontsize",12)+2};
+ font-size:${GM_config.get("fontsize",12)+2}px;
     font-weight: bold;
   overflow: hidden;
 white-space: nowrap;
@@ -808,7 +848,7 @@ white-space: nowrap;
 
 
   .torrent-quicksearch-clientSelect {
- font-size:${GM_config.get("fontsize",12)+2};
+ font-size:${GM_config.get("fontsize",12)+2}px;
 font-weight: bold;
        width:100%;
 
@@ -896,7 +936,12 @@ font-weight: bold;
   })
 	document.body.insertBefore(box, document.body.children[0])
 
+
 }
+
+
+
+
 
 `
 Matching Function
