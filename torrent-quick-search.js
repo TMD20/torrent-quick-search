@@ -3,7 +3,7 @@
 // @namespace  https://github.com/TMD20/torrent-quick-search
 // @supportURL https://github.com/TMD20/torrent-quick-search
 // @downloadURL https://greasyfork.org/en/scripts/452502-torrent-quick-search
-// @version     1.53
+// @version     1.54
 // @description Toggle for Searching Torrents via Search aggegrator
 // @icon        https://cdn2.iconfinder.com/data/icons/flat-icons-19/512/Eye.png
 // @author      tmd
@@ -1952,15 +1952,6 @@ GM_config.init(
 				'title': 'Which search program'
 			},
 
-			'sitefilter':
-			{
-				'label': 'Filter Current Site',
-
-				'type': 'radio',
-				'options': ['true', 'false'],
-				'title': 'Should Results From Current Site be Filtered Out'
-			},
-
 			'indexers':
 			{
 				'label': 'Indexers',
@@ -1977,6 +1968,16 @@ GM_config.init(
 				'title': 'Use White list if you want to manually approve indexers\nUse Black list if you want to use all Indexers, and just have few or none to disable'
 
 			},
+
+			'sitefilter':
+			{
+				'label': 'Filter Current Site',
+
+				'type': 'radio',
+				'options': ['true', 'false'],
+				'title': 'Should Results From Current Site be Filtered Out'
+			},
+
 
 			'fontsize':
 			{
