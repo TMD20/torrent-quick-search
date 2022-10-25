@@ -9,20 +9,19 @@
 // @author      tmd
 // @noframes
 // @run-at document-end
-// @require https://openuserjs.org/src/libs/sizzle/GM_config.min.js
 // @grant GM.getValue
 // @grant GM.setValue
 // @grant GM.xmlHttpRequest
 // @grant GM.registerMenuCommand
-// @grant GM_config
 // @grant GM.notification
 // @grant GM_getValue
 // @grant GM_setValue
 // @grant GM_xmlhttpRequest
 // @grant GM_registerMenuCommand
 // @grant GM_notification
-// @require https://cdn.jsdelivr.net/npm/semaphore@1.1.0/lib/semaphore.min.js
-// @require https://cdn.jsdelivr.net/npm/semaphore@1.1.0/lib/semaphore.min.js
+// @require  https://cdn.jsdelivr.net/npm/semaphore@1.1.0/lib/semaphore.min.js
+// @require  https://cdn.jsdelivr.net/gh/sizzlemctwizzle/GM_config@43fd0fe4de1166f343883511e53546e87840aeaf/gm_config.js
+// @require  https://greasemonkey.github.io/gm4-polyfill/gm4-polyfill.js
 // @match https://animebytes.tv/requests.php?action=viewrequest&id=*
 // @match https://animebytes.tv/series.php?id=*
 // @match https://animebytes.tv/torrents.php?id=*
@@ -35,11 +34,10 @@
 // @match https://www.imdb.com/title/*
 // @match https://www.themoviedb.org/movie/*
 // @match https://www.themoviedb.org/tv/*
-
 // @license MIT
 // ==/UserScript==
 
-`
+ `
 General Functions
 Functions that don't fit in any other catergory
 `;
@@ -2006,9 +2004,13 @@ function overideBuiltins() {
 }
 
 function main() {
-  overideBuiltins();
-  initConfig();
-  createMainDOM();
+  if (GM.info.script.name == "Torrent Quick Search") {
+    overideBuiltins();
+    initConfig();
+    createMainDOM();
+  }
+  
+
 }
 
 main();
