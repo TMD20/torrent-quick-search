@@ -67,9 +67,10 @@
 1.57
 * Allow user download/client request to bypass semaphore
 
-1.6
+1.60
 * Add Support for tampermonkey
 * Add Support for greasemonkey
 * Remove non-intentional global variables
 * Add a "Add Client" button
+* Change GM_config link
 
