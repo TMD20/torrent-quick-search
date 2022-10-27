@@ -1,3 +1,4 @@
+
 function setTitleNode() {
   if (customSearch == false) {
     document.querySelector("#torrent-quicksearch-customsearch").value =
