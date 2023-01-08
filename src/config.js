@@ -378,7 +378,7 @@ function saveMenu(){
   let bool2=GM_config.getValue("oldSearchURL","")!=GM_config.get("searchurl")
   let bool3=GM_config.getValue("oldSearchAPI","")!=GM_config.get("searchapi")
   if(bool1 ||bool2||bool3){
-    alert("Search Program Updated\nPlease Select Indexers")
+    alert("Search Settings Updated\nPlease Select Indexers")
     GM_config.setValue("indexers",[])
     GM_config.fields.indexers.wrapper.querySelector("button").click()
   }
