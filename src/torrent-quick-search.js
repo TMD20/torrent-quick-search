@@ -50,9 +50,9 @@
 function main() {
   if (GM.info.script.name == "Torrent Quick Search") {
     overideBuiltins();
-    init51ef6e297bd9510fd21ff3b1f14e868550811f00Config();
+    initConfig();
     initFilterConfig()
-    create51ef6e297bd9510fd21ff3b1f14e868550811f00DOM();
+    createDOM();
   }
 }
 
