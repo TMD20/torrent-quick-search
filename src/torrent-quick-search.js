@@ -22,16 +22,16 @@
 // @require  https://cdn.jsdelivr.net/npm/semaphore@1.1.0/lib/semaphore.min.js
 // @require  https://cdn.jsdelivr.net/gh/sizzlemctwizzle/GM_config@43fd0fe4de1166f343883511e53546e87840aeaf/gm_config.js
 // @require  https://greasemonkey.github.io/gm4-polyfill/gm4-polyfill.js
-// @require   https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@main/src/global.js
-// @require  https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@main/src/config.js
-// @require   https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@main/src/nodeManipulator.js
-// @require   https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@main/src/indexers.js
-// @require   https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@main/src/events.js
-// @require    https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@main/src/mediaID.js
-// @require    https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@main/src/parser.js
-// @require    https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@main/src/search.js
-// @require    https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@main/src/clients.js
-// @require   https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@main/src/main.js
+// @require   https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@51ef6e297bd9510fd21ff3b1f14e868550811f00/src/global.js
+// @require  https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@51ef6e297bd9510fd21ff3b1f14e868550811f00/src/config.js
+// @require   https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@51ef6e297bd9510fd21ff3b1f14e868550811f00/src/nodeManipulator.js
+// @require   https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@51ef6e297bd9510fd21ff3b1f14e868550811f00/src/indexers.js
+// @require   https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@51ef6e297bd9510fd21ff3b1f14e868550811f00/src/events.js
+// @require    https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@51ef6e297bd9510fd21ff3b1f14e868550811f00/src/mediaID.js
+// @require    https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@51ef6e297bd9510fd21ff3b1f14e868550811f00/src/parser.js
+// @require    https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@51ef6e297bd9510fd21ff3b1f14e868550811f00/src/search.js
+// @require    https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@51ef6e297bd9510fd21ff3b1f14e868550811f00/src/clients.js
+// @require   https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@51ef6e297bd9510fd21ff3b1f14e868550811f00/src/51ef6e297bd9510fd21ff3b1f14e868550811f00.js
 // @match https://animebytes.tv/requests.php?action=viewrequest&id=*
 // @match https://animebytes.tv/series.php?id=*
 // @match https://animebytes.tv/torrents.php?id=*
@@ -50,9 +50,9 @@
 function main() {
   if (GM.info.script.name == "Torrent Quick Search") {
     overideBuiltins();
-    initMainConfig();
+    init51ef6e297bd9510fd21ff3b1f14e868550811f00Config();
     initFilterConfig()
-    createMainDOM();
+    create51ef6e297bd9510fd21ff3b1f14e868550811f00DOM();
   }
 }
 
