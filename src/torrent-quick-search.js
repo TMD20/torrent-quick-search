@@ -3,7 +3,7 @@
 // @namespace  https://github.com/TMD20/torrent-quick-search
 // @supportURL https://github.com/TMD20/torrent-quick-search
 // @downloadURL https://greasyfork.org/en/scripts/452502-torrent-quick-search
-// @version     2.00
+// @version     2.01
 // @description Toggle for Searching Torrents via Search aggegrator
 // @icon        https://cdn2.iconfinder.com/data/icons/flat-icons-19/512/Eye.png
 // @author      tmd
@@ -31,7 +31,7 @@
 // @require    https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@51ef6e297bd9510fd21ff3b1f14e868550811f00/src/parser.js
 // @require    https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@51ef6e297bd9510fd21ff3b1f14e868550811f00/src/search.js
 // @require    https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@51ef6e297bd9510fd21ff3b1f14e868550811f00/src/clients.js
-// @require   https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@51ef6e297bd9510fd21ff3b1f14e868550811f00/src/51ef6e297bd9510fd21ff3b1f14e868550811f00.js
+// @require   https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@51ef6e297bd9510fd21ff3b1f14e868550811f00/src/main.js
 // @match https://animebytes.tv/requests.php?action=viewrequest&id=*
 // @match https://animebytes.tv/series.php?id=*
 // @match https://animebytes.tv/torrents.php?id=*
