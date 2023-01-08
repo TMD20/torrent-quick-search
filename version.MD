@@ -74,3 +74,19 @@
 * Add a "Add Client" button
 * Change GM_config link
 
+
+2.00	
+* Support for Transmission
+* Support for Qbittorrent
+* Support for rtorrent
+* Filter Search Results
+* Switch to Jsdelivr
+* Updated Indexer Selection
+
+
+2.01		
+* Update url
+
+2.02	
+* bug fix
+
