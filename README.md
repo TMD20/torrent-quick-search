@@ -35,6 +35,11 @@ The toggle shrinks when not in use, and can be moved around if desired
 # Clients Supported
 * Sonarr
 * Radarr
+* Rtorrent
+* Qbittorrent
+* Transmission
+* Sabnzbd
+* Nzbget
 
 # How Use
 * Go to Supported Site
@@ -57,7 +62,6 @@ Required
 Optional
 * indexer: can match search program names with only part of the name, or a substring
 * filter current site: For private trackers if you want to not see results from the current tracker
-* TMDB API Key: It is highly recommended to add this, as it provides better matching for arr clients. If arr clients have to match based on title it leads to more unknown series errors. 
 
 
 # Adding Clients

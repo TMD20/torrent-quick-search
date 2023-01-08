@@ -1,10 +1,10 @@
 
 function setTitleNode() {
   if (customSearch == false) {
-    document.querySelector("#torrent-quicksearch-customsearch").value =
-      getTitle();
+    document.querySelector("#torrent-quicksearch-customsearch").value = getTitle();
   }
 }
+
 async function setIMDBNode() {
   let imdb = null;
   //Get Old IMDB
@@ -38,6 +38,8 @@ function hideDisplay() {
     .style.setProperty("--icon-size", `${iconSmall}%`);
   document.querySelector("#torrent-quicksearch-customsearch").value = "";
   document.querySelector("#torrent-quicksearch-box").style.display = "none";
+  document.querySelector("#torrent-quicksearch-filter").style.display = "none";
+
 }
 
 function showDisplay() {
@@ -48,19 +50,24 @@ function showDisplay() {
     .querySelector("#torrent-quicksearch-overlay")
     .style.setProperty("--icon-size", `${iconLarge}%`);
   document.querySelector("#torrent-quicksearch-box").style.display =
-    "inline-block";
+    "block";
+  document.querySelector("#torrent-quicksearch-filter").style.display = "block";
+
 }
 
 function getTableHead() {
   let node = document.querySelector("#torrent-quicksearch-resultheader");
   node.innerHTML = `
-       <span class="torrent-quicksearch-resultcell"  >Links</span>
-       <span class="torrent-quicksearch-resultcell"  >Clients</span>
+       <span class="torrent-quicksearch-resultcell" >Links</span>
+       <span class="torrent-quicksearch-resultcell" >Clients</span>
     <span class="torrent-quicksearch-resultcell"  >Title</span>
     <span class="torrent-quicksearch-resultcell"  >Indexer</span>
-    <span class="torrent-quicksearch-resultcell"  >Grabs</span>
-    <span class="torrent-quicksearch-resultcell"  >Seeders</span>
-    <span class="torrent-quicksearch-resultcell"  >Leechers</span>
+
+    <span class="tooltip">
+    <span class="torrent-quicksearch-resultcell">L/S/G</span>
+<span class="tooltiptext">Leechers/Seeders/Grabs</span>
+</span>
+
   <span class="torrent-quicksearch-resultcell"  >DLCost</span>
     <span class="torrent-quicksearch-resultcell"  >Date</span>
     <span class="torrent-quicksearch-resultcell">Size</span>
@@ -100,7 +107,7 @@ function addResultsTable(data) {
         <span>
           <span class="tooltip">
         <button class=torrent-quicksearch-clientSubmit>Send</button>
-  <span class="tooltiptext">Arr Clients imdbID sent from entry if null then page</span>
+  <span class="tooltiptext">Add Release to client</span>
       </span>
         </span>
        </form>
@@ -115,26 +122,26 @@ function addResultsTable(data) {
       e["Indexer"]
     }</span>
     <span class="torrent-quicksearch-resultcell" style='grid-column-start:5'>${
-      e["Grabs"] || "No Data"
+      `${e["Leechers"] || "?"} / ${e["Seeders"] || "?"} / ${e["Grabs"] || "?"}`
     } </span>
-  <span class="torrent-quicksearch-resultcell" style='grid-column-start:6'>${
-    e["Seeders"] || "No Data"
-  } </span>
-  <span class="torrent-quicksearch-resultcell" style='grid-column-start:7' >${
-    e["Leechers"] || "No Data"
-  } </span>
- <span class="torrent-quicksearch-resultcell" style='grid-column-start:8'>${
+ 
+ <span class="torrent-quicksearch-resultcell" style='grid-column-start:6'>${
    e["Cost"]
  } </span>
- <span class="torrent-quicksearch-resultcell" style='grid-column-start:9' >${new Date(
+ <span class="torrent-quicksearch-resultcell" style='grid-column-start:7' >${new Date(
    e["PublishDate"]
  ).toLocaleString("en-CA")}</span>
- <span class="torrent-quicksearch-resultcell" style='grid-column-start:10' >${(
+ <span class="torrent-quicksearch-resultcell" style='grid-column-start:8' >${(
    parseInt(e["Size"]) / 1073741824
  ).toFixed(2)} GB</span>
-<span class="torrent-quicksearch-resultcell" style='grid-column-start:11' >${
+<span class="torrent-quicksearch-resultcell" style='grid-column-start:9' >${
       e["ImdbId"]
-    }</span>`;
+    }</span>
+    <span class="torrent-quicksearch-resultcell" style='display:none' >${
+      e["Type"]
+    }</span>
+    
+    `;
 
     let selNode = node.querySelector("select");
 
@@ -146,7 +153,7 @@ function addResultsTable(data) {
       selNode.appendChild(optnode);
     });
     node.querySelector("form").addEventListener("submit", clientFactory(e));
-
+    node=filterResults([node])[0]
     tempFrag.append(node);
   });
 
@@ -158,10 +165,15 @@ function resetResultList() {
   document.querySelector("#torrent-quicksearch-resultlist").textContent = "";
 }
 
+
+
 function createMainDOM() {
+  //box is flexbox with sticky position
+  //first div is position absolutely within flexbox div
+  //search box also has an absolute position
   const box = document.createElement("div");
   box.setAttribute("id", "torrent-quicksearch-overlay");
-  let rowSplit = 12;
+  let rowSplit = 10;
   let contentWidth = 70;
   let boxMinHeight = 5;
   let boxMaxHeight = 100;
@@ -177,11 +189,11 @@ function createMainDOM() {
   <div id="torrent-quicksearch-msgnode"></div>
   <div id="torrent-quicksearch-custombox">
         <div>
-      <label>Title:</label>
-    <input type="text" id="torrent-quicksearch-customsearch">
-     <label>Page IMDB:</label>
-    <div id="torrent-quicksearch-imdbinfo">None</div>
+    <input type="text" id="torrent-quicksearch-customsearch" placeholder="title">
     <button id="torrent-quicksearch-customsearchbutton">Custom Search</button>
+
+     <label>IMDB Match:</label>
+    <div id="torrent-quicksearch-imdbinfo">None</div>
         </div>
   </div>
     <div id="torrent-quicksearch-resultheader"></div>
@@ -193,10 +205,15 @@ function createMainDOM() {
 
     </div>
 </div>
+
+<?xml version="1.0" ?><svg id=torrent-quicksearch-filter width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M46 39.1424L68 13.9995L12 13.9995L34 39.1424L34 65.9995L46 56.1172V39.1424Z" fill="#d5cbcb" />
+<path d="M12 13.9995L68 13.9995L40 45.9995L12 13.9995Z" fill="#D7C49EFF" />
+</svg>
 <style>
   /*     Variables */
   #torrent-quicksearch-overlay {
-  --grid-size: max(calc(50vw/${rowSplit}),calc(100%/${rowSplit}));
+  --grid-size: max(calc(50vw/${rowSplit}),calc(105%/${rowSplit}));
   --icon-size:${iconSmall}%;
     --icon-padding:${paddingSmall}%;
 
@@ -236,10 +253,38 @@ function createMainDOM() {
     margin-bottom:calc(${paddingLarge}vh - var(--icon-padding));
   margin-top:calc(${paddingLarge}vh - var(--icon-padding));
 }
+
+#torrent-quicksearch-filter {
+  display:none;
+  cursor: pointer;
+  pointer-events:all;
+  right:5vw;
+  position:absolute;
+  width: calc(${iconSmall}% + 4%);
+  height:calc(${iconSmall}% + 4%);
+}
+
+#torrent-quicksearch-filter:hover {
+  cursor: pointer;
+  pointer-events:all;
+  width:  calc(${iconSmall}% + 12%);
+  height: calc(${iconSmall}% + 12%);
+  right:5vw;
+  position:absolute;
+}
+#torrent-quicksearch-filter:active {
+  cursor: pointer;
+  pointer-events:all;
+  width:  calc(${iconSmall}% + 10%);
+  height: calc(${iconSmall}% + 10%);
+  right:5vw;
+  position:absolute;
+  opacity:0.6;
+}
     #torrent-quicksearch-box{
   resize:both;
   direction:rtl;
-   right:5vw;
+   right:10vw;
   margin-right:auto;
   position:absolute;
   display:none;
@@ -275,7 +320,7 @@ function createMainDOM() {
       background-color:#FFFFFF;
       flex-direction:row;
       justify-content: center;
-       width: 100%
+       width: 90%
 
    }
   #torrent-quicksearch-custombox>div >label {
@@ -284,7 +329,7 @@ function createMainDOM() {
 
    }
     #torrent-quicksearch-custombox>div >button {
-       margin-left:2.5%;
+       margin-left:0%;
 
 
    }
@@ -347,6 +392,10 @@ function createMainDOM() {
 
   .torrent-quicksearch-resultitem{
     font-size:${GM_config.get("fontsize", 12)}px;
+  }
+
+  .torrent-quicksearch-hiddenresultitem{
+    display:none;
   }
 
   #torrent-quicksearch-resultlist>.torrent-quicksearch-resultitem:nth-child(even) {
@@ -448,6 +497,9 @@ font-weight: bold;
 
 
 <style/>`;
+box
+.querySelector("#torrent-quicksearch-filter")
+.addEventListener("click", filterEvent);
 
   box
     .querySelector("#torrent-quicksearch-toggle")
@@ -456,7 +508,6 @@ font-weight: bold;
     .querySelector("#torrent-quicksearch-toggle")
     .addEventListener("mouseup", mouseUpProcess);
   document.addEventListener("mouseup", resetMouse);
-
   box
     .querySelector("#torrent-quicksearch-customsearchbutton")
     .addEventListener("click", () => {
@@ -467,9 +518,70 @@ font-weight: bold;
         }
 
         lastClick = Date.now();
-        let customSearch = true;
+        customSearch = true;
         searchObj.doSearch();
       }, 0);
     });
   document.body.insertBefore(box, document.body.children[0]);
+
+}
+
+function filterResults(nodeArray){
+  for(i in nodeArray){
+    let nodeElement=nodeArray[i]
+    let LSG=nodeElement.querySelectorAll(".torrent-quicksearch-resultcell")[3].textContent.split("/")
+    let leechers=LSG[0].replace(/ +/g,"")
+    let seeders=parseInt(LSG[1].replace(/ +/g,""))
+    let freeleech=parseInt(nodeElement.querySelectorAll(".torrent-quicksearch-resultcell")[4].textContent.replace(/\D+/,""))
+    let size=parseInt(nodeElement.querySelectorAll(".torrent-quicksearch-resultcell")[6].textContent.replace("GB","").replace(/ +/g,""))
+    let date=Date.parse(nodeElement.querySelectorAll(".torrent-quicksearch-resultcell")[5].textContent.split(",")[0])
+    let type=nodeElement.querySelectorAll(".torrent-quicksearch-resultcell")[8].textContent
+    if(filterconfig.get("torrentDownload")==false&&type=="torrent"){
+      nodeElement.setAttribute("class","torrent-quicksearch-hiddenresultitem")
+    }
+    else if(filterconfig.get("nzbDownload")==false&&type=="nzbget"){
+      nodeElement.setAttribute("class","torrent-quicksearch-hiddenresultitem")
+    }
+    else if (size!=null &&filterconfig.get("maxSize")!==-1 &&parseInt(filterconfig.get("maxSize"))<size){
+      nodeElement.setAttribute("class","torrent-quicksearch-hiddenresultitem")
+    }
+
+    else if (size!=null && parseInt(filterconfig.get("minSize"))>size){
+      nodeElement.setAttribute("class","torrent-quicksearch-hiddenresultitem")
+    }
+
+   else if (seeders!=null&&filterconfig.get("maxSeeders")!==-1 &&parseInt(filterconfig.get("maxSeeders"))<seeders){
+      nodeElement.setAttribute("class","torrent-quicksearch-hiddenresultitem")
+    }
+
+    else if (seeders!=null&&parseInt(filterconfig.get("minSeeders"))>seeders){
+      nodeElement.setAttribute("class","torrent-quicksearch-hiddenresultitem")
+    }
+
+    
+   else if (leechers!=null&&filterconfig.get("maxLeechers")!==-1 &&parseInt(filterconfig.get("maxLeechers"))<leechers){
+    nodeElement.setAttribute("class","torrent-quicksearch-hiddenresultitem")
+  }
+
+  else if (leechers!=null&&parseInt(filterconfig.get("minLeechers"))>leechers){
+    nodeElement.setAttribute("class","torrent-quicksearch-hiddenresultitem")
+  }
+  else if (freeleech!=null&&parseInt(filterconfig.get("minFreeleech"))>freeleech){
+    nodeElement.setAttribute("class","torrent-quicksearch-hiddenresultitem")
+  }
+  
+  else if (date!=null &&Date.parse(filterconfig.get("youngerThan"))<date){
+    nodeElement.setAttribute("class","torrent-quicksearch-hiddenresultitem")
+  }
+
+  else if (date!=null&&Date.parse(filterconfig.get("olderThan"))>date){
+    nodeElement.setAttribute("class","torrent-quicksearch-hiddenresultitem")
+  }
+    else{
+      nodeElement.setAttribute("class","torrent-quicksearch-resultitem")
+
+    }
+    
+  }
+  return nodeArray.filter((e)=>e.getAttribute("class","torrent-quicksearch-resultitem"))
 }
