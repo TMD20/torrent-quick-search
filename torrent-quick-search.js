@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name        Torrent Quick Search develop
+// @name        Torrent Quick Search
 // @namespace  https://github.com/TMD20/torrent-quick-search
 // @supportURL https://github.com/TMD20/torrent-quick-search
 // @downloadURL https://greasyfork.org/en/scripts/452502-torrent-quick-search
-// @version     2.03
+// @version     2.04
 // @description Toggle for Searching Torrents via Search aggegrator
 // @icon        https://cdn2.iconfinder.com/data/icons/flat-icons-19/512/Eye.png
 // @author      tmd
@@ -22,16 +22,16 @@
 // @require  https://cdn.jsdelivr.net/npm/semaphore@1.1.0/lib/semaphore.min.js
 // @require  https://cdn.jsdelivr.net/gh/sizzlemctwizzle/GM_config@43fd0fe4de1166f343883511e53546e87840aeaf/gm_config.js
 // @require  https://greasemonkey.github.io/gm4-polyfill/gm4-polyfill.js
-// @require   http://localhost:8080/src/global.js
-// @require  http://localhost:8080/src/config.js
-// @require   http://localhost:8080/src/nodeManipulator.js
-// @require   http://localhost:8080/src/indexers.js
-// @require   http://localhost:8080/src/events.js
-// @require    http://localhost:8080/src/mediaID.js
-// @require    http://localhost:8080/src/parser.js
-// @require    http://localhost:8080/src/search.js
-// @require    http://localhost:8080/src/clients.js
-// @require   http://localhost:8080/src/main.js
+// @require   https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search-source@5b013010295321010239d82784202a29ab28038e/src/global.js
+// @require  https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search-source@5b013010295321010239d82784202a29ab28038e/src/config.js
+// @require   https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search-source@5b013010295321010239d82784202a29ab28038e/src/nodeManipulator.js
+// @require   https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search-source@5b013010295321010239d82784202a29ab28038e/src/indexers.js
+// @require   https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search-source@5b013010295321010239d82784202a29ab28038e/src/events.js
+// @require    https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search-source@5b013010295321010239d82784202a29ab28038e/src/mediaID.js
+// @require    https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search-source@5b013010295321010239d82784202a29ab28038e/src/parser.js
+// @require    https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search-source@5b013010295321010239d82784202a29ab28038e/src/search.js
+// @require    https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search-source@5b013010295321010239d82784202a29ab28038e/src/clients.js
+// @require   https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search-source@5b013010295321010239d82784202a29ab28038e/src/main.js
 // @match https://animebytes.tv/requests.php?action=viewrequest&id=*
 // @match https://animebytes.tv/series.php?id=*
 // @match https://animebytes.tv/torrents.php?id=*
@@ -48,12 +48,13 @@
 // ==/UserScript==
 
 function main() {
-  if (GM.info.script.name == "Torrent Quick Search") {
-    overideBuiltins();
-    initMainConfig();
-    initFilterConfig()
-    createMainDOM();
+    if (GM.info.script.name == "Torrent Quick Search") {
+      overideBuiltins();
+      initMainConfig();
+      initFilterConfig()
+      createMainDOM();
+    }
   }
-}
-
-main();
+  
+  main();
+  
