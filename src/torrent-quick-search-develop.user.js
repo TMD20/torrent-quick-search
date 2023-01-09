@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name        Torrent Quick Search
+// @name        Torrent Quick Search develop
 // @namespace  https://github.com/TMD20/torrent-quick-search
 // @supportURL https://github.com/TMD20/torrent-quick-search
 // @downloadURL https://greasyfork.org/en/scripts/452502-torrent-quick-search
