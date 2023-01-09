@@ -24,7 +24,7 @@ let infoParser = {
     titleAttrib: "textContent",
   },
   blutopia: {
-    title: "h1>a[href*=torrents\\/similar]",
+    title: ".movie-heading>a,.movie-heading>span",
     titleAttrib: "textContent",
     imdb: "div[class*=movie-details]>span>a[title=IMDB]",
     imdbAttrib: "textContent",

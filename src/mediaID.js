@@ -1,9 +1,12 @@
 function getTitle() {
-  let titleNode = document.querySelector(siteParser["title"]);
-  if (titleNode == null) {
-    throw new Error("Title Node Not Found");
-  }
-  let title = titleNode[siteParser["titleAttrib"]];
+  let titleNodes = Array.from(document.querySelectorAll(siteParser["title"]));
+  let title = titleNodes.reduce((accumulator, currentValue) => { 
+    if (currentValue==null){
+      return accumulator
+    }
+    return accumulator+currentValue[siteParser["titleAttrib"]]
+  },"")
+    
   title = titleCleanup(title);
   return title;
 }

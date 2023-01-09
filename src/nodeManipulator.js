@@ -63,9 +63,9 @@ function getTableHead() {
     <span class="torrent-quicksearch-resultcell"  >Title</span>
     <span class="torrent-quicksearch-resultcell"  >Indexer</span>
 
-    <span class="tooltip">
+    <span class="torrent-quicksearch-tooltip">
     <span class="torrent-quicksearch-resultcell">L/S/G</span>
-<span class="tooltiptext">Leechers/Seeders/Grabs</span>
+<span class="torrent-quicksearch-tooltiptext">Leechers/Seeders/Grabs</span>
 </span>
 
   <span class="torrent-quicksearch-resultcell"  >DLCost</span>
@@ -105,9 +105,9 @@ function addResultsTable(data) {
       </select>
       </span>
         <span>
-          <span class="tooltip">
+          <span class="torrent-quicksearch-tooltip">
         <button class=torrent-quicksearch-clientSubmit>Send</button>
-  <span class="tooltiptext">Add Release to client</span>
+  <span class="torrent-quicksearch-tooltiptext">Add Release to client</span>
       </span>
         </span>
        </form>
@@ -466,15 +466,15 @@ font-weight: bold;
   background-color:white;
 
   }
-  /* Tooltip container */
-.tooltip {
+  /* torrent-quicksearch-tooltip container */
+.torrent-quicksearch-tooltip {
   position: relative;
   display: inline-block;
   border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
 }
 
-/* Tooltip text */
-.tooltip .tooltiptext {
+/* torrent-quicksearch-tooltip text */
+.torrent-quicksearch-tooltip .torrent-quicksearch-tooltiptext {
   visibility: hidden;
   width: 120px;
   background-color: black;
@@ -483,13 +483,13 @@ font-weight: bold;
   padding: 5px 0;
   border-radius: 6px;
 
-  /* Position the tooltip text - see examples below! */
+  /* Position the torrent-quicksearch-tooltip text - see examples below! */
   position: absolute;
   z-index: 1;
 }
 
-/* Show the tooltip text when you mouse over the tooltip container */
-.tooltip:hover .tooltiptext {
+/* Show the torrent-quicksearch-tooltip text when you mouse over the torrent-quicksearch-tooltip container */
+.torrent-quicksearch-tooltip:hover .torrent-quicksearch-tooltiptext {
   visibility: visible;
 }
 

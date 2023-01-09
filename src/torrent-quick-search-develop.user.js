@@ -3,7 +3,7 @@
 // @namespace  https://github.com/TMD20/torrent-quick-search
 // @supportURL https://github.com/TMD20/torrent-quick-search
 // @downloadURL https://greasyfork.org/en/scripts/452502-torrent-quick-search
-// @version     2.04
+// @version     2.03
 // @description Toggle for Searching Torrents via Search aggegrator
 // @icon        https://cdn2.iconfinder.com/data/icons/flat-icons-19/512/Eye.png
 // @author      tmd
@@ -22,16 +22,16 @@
 // @require  https://cdn.jsdelivr.net/npm/semaphore@1.1.0/lib/semaphore.min.js
 // @require  https://cdn.jsdelivr.net/gh/sizzlemctwizzle/GM_config@43fd0fe4de1166f343883511e53546e87840aeaf/gm_config.js
 // @require  https://greasemonkey.github.io/gm4-polyfill/gm4-polyfill.js
-// @require   https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@a37476f38444f86b078762f94f862364b396d767/src/global.js
-// @require  https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@a37476f38444f86b078762f94f862364b396d767/src/config.js
-// @require   https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@a37476f38444f86b078762f94f862364b396d767/src/nodeManipulator.js
-// @require   https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@a37476f38444f86b078762f94f862364b396d767/src/indexers.js
-// @require   https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@a37476f38444f86b078762f94f862364b396d767/src/events.js
-// @require    https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@a37476f38444f86b078762f94f862364b396d767/src/mediaID.js
-// @require    https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@a37476f38444f86b078762f94f862364b396d767/src/parser.js
-// @require    https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@a37476f38444f86b078762f94f862364b396d767/src/search.js
-// @require    https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@a37476f38444f86b078762f94f862364b396d767/src/clients.js
-// @require   https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search@a37476f38444f86b078762f94f862364b396d767/src/main.js
+// @require   http://localhost:8080/src/global.js
+// @require  http://localhost:8080/src/config.js
+// @require   http://localhost:8080/src/nodeManipulator.js
+// @require   http://localhost:8080/src/indexers.js
+// @require   http://localhost:8080/src/events.js
+// @require    http://localhost:8080/src/mediaID.js
+// @require    http://localhost:8080/src/parser.js
+// @require    http://localhost:8080/src/search.js
+// @require    http://localhost:8080/src/clients.js
+// @require   http://localhost:8080/src/main.js
 // @match https://animebytes.tv/requests.php?action=viewrequest&id=*
 // @match https://animebytes.tv/series.php?id=*
 // @match https://animebytes.tv/torrents.php?id=*
