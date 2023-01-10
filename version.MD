@@ -89,4 +89,8 @@
 
 2.02	
 * bug fix
+2.04
+* some refactoring
+* bug fixes
+* improve title parser
 
