@@ -89,8 +89,17 @@
 
 2.02	
 * bug fix
+
 2.04
 * some refactoring
 * bug fixes
 * improve title parser
+
+2.1
+
+* Added support for tracker filer in quick filter menu
+* Added manual filtering of IMDB
+* Change CSS for message box
+* Remove IMDB from custombox
+* Fail Safe for sonarr and radarr
 
