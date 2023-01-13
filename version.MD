@@ -95,7 +95,7 @@
 * bug fixes
 * improve title parser
 
-2.1
+2.10
 
 * Added support for tracker filer in quick filter menu
 * Added manual filtering of IMDB
