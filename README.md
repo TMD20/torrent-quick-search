@@ -43,6 +43,7 @@ The toggle shrinks when not in use, and can be moved around if desired
 * Go to Supported Site
 * Make Sure to use your script manager to setup required settings
 This can usually be done by clicking on icon in menu
+* At a minimum you need a search program and indexers setup to properly used this script
 
 ## Adding Search Program + Indexers
 * Search URL: example localhost:9118
