@@ -3,17 +3,13 @@ Creates a quick search toggle powered by search aggregator such as prowlarr. Sea
 The toggle shrinks when not in use, and can be moved around if desired
 
 # Features
-* Toggle Search based on info gathered on Page
-* Resizable+Moveable Element
-* Can Send downloads directly to clients
-* Can Store Multiple clients 
-* Supports Multiple Search Aggregator
-* Faster Results through Concurrent searching
-  - Up to 10 request at once
-  - Results are available for each indexers as soon as they return
-  - Slow indexers won't block
-* Automatic and Manual Searches
-* On-the-fly filtering of results
+* Speedy - Results returned as soon as avaible
+* Manual Search Option
+* On the Fly Filtering
+* Results Box can be Moved/Resized
+* Send downloads directly to download client
+* Supports Multiple Download Clients
+* Used your favorite Search Aggregator
 
 
 # Suported Sites
