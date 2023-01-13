@@ -107,3 +107,5 @@
 * Fix some bugs with quick filter settings menu
 2.14 
 * Add compatible 
+2.15
+* Add border to result items
