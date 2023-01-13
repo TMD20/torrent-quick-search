@@ -103,3 +103,5 @@
 * Remove IMDB from custombox
 * Fail Safe for sonarr and radarr
 
+2.13
+* Fix some bugs with quick filter settings menu
