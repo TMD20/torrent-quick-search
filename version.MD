@@ -105,7 +105,12 @@
 
 2.13
 * Fix some bugs with quick filter settings menu
+
 2.14 
 * Add compatible 
+
 2.15
 * Add border to result items
+
+2.17
+* Change Site Name Parser
