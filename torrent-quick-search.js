@@ -44,6 +44,11 @@
 // @match https://www.imdb.com/title/*
 // @match https://www.themoviedb.org/movie/*
 // @match https://www.themoviedb.org/tv/*
+// @compatible   firefox
+// @compatible   opera
+// @compatible   chrome
+// @compatible   safari
+// @compatible   edge
 // @license MIT
 // ==/UserScript==
 
