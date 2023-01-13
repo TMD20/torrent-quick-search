@@ -105,3 +105,5 @@
 
 2.13
 * Fix some bugs with quick filter settings menu
+2.14 
+* Add compatible 
