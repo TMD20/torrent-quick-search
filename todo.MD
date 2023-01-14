@@ -4,5 +4,7 @@ Todo/Future Features
 * cache data
 * Allow Seeing History of Past Searches
 
+* Fix scrollbar CSS
+
 
 
