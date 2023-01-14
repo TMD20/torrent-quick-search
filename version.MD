@@ -114,3 +114,7 @@
 
 2.17
 * Change Site Name Parser
+
+2.18
+* Fix BHD Issue
+* CSS Improvements
