@@ -118,3 +118,7 @@
 2.18
 * Fix BHD Issue
 * CSS Improvements
+
+2.20
+* msgnode change
+* splice adding to resultstable
