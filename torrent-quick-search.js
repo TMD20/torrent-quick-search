@@ -21,7 +21,7 @@
 // @grant GM_notification
 // @require  https://cdn.jsdelivr.net/npm/semaphore@1.1.0/lib/semaphore.min.js
 // @require  https://cdn.jsdelivr.net/gh/sizzlemctwizzle/GM_config@43fd0fe4de1166f343883511e53546e87840aeaf/gm_config.js
-// @require  https://greasemonkey.github.io/gm4-polyfill/gm4-polyfill.js
+// @require  https://cdn.jsdelivr.net/gh/greasemonkey/gm4-polyfill@a834d46afcc7d6f6297829876423f58bb14a0d97/gm4-polyfill.js     
 // @require   https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search-source@b4f37452a35380729f772d98557d2f630b5e68bd/src/global.js
 // @require  https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search-source@b4f37452a35380729f772d98557d2f630b5e68bd/src/config.js
 // @require   https://cdn.jsdelivr.net/gh/tmd20/torrent-quick-search-source@b4f37452a35380729f772d98557d2f630b5e68bd/src/nodeManipulator.js
